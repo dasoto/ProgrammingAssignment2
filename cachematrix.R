@@ -11,18 +11,33 @@
 ## A simple example about how to create the SuperMatrix is:
 ## > myMatrix <- matrix(c(1,2,3,4), nrow=2,ncol=2)
 ## > mySuperMatrix <- makeCacheMatrix(myMatrix)
+## To check the Super Matrix is OK:
+## > mySuperMatrix$get()
+##       [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
 
 
 makeCacheMatrix <- function(x = matrix()) {
+  ## When the SuperMatrix is created, we assign the value of his inverse to Null
   inv<-NULL
+  
+  ## Function 1.- to assign a new matrix to the SuperMatrix. Inverse is set to null
   set <- function(y){
     x <<- y
     inv <<- NULL
   }
+  
+  ## Function 2.- to get the matrix
   get <- function() x
   
+  ## Function 3.- to set the inverse of the matrix
   setInverse <- function(inverse) inv <<- inverse
+  
+  ## Function 4.- to get the inverse of the matrix
   getInverse <- function() inv
+  
+  ## Now we use the functional programming propierties that allow to create list of functions
   list(set = set, 
        get = get, 
        setInverse = setInverse,
